@@ -8,13 +8,13 @@ load_dotenv()
 
 
 
-AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+AWS_REGION = os.getenv("AWS_REGION_ID", "us-east-1")
 S3_INPUT_BUCKET = os.getenv("S3_INPUT_BUCKET", "placeholder")
 S3_OUTPUT_BUCKET = os.getenv("S3_OUTPUT_BUCKET", "placeholder")
 
 
 
-BEDROCK_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+BEDROCK_MODEL_ID_NUMBER = "anthropic.claude-3-haiku-20240307-v1:0"
 
 MIN_TWEETS_TO_PROCESS = 100
 DEFAULT_RATE_LIMIT = 10
