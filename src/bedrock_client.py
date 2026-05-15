@@ -32,7 +32,7 @@ class bedrock_client:
             response = self.client.converse(
                 modelId=BEDROCK_MODEL_ID_NUMBER,
                 messages=[{"role":"user","content":[{"text": the_prompt}]}],  #user (role) prompt
-                system=[{"text":get_system_prompt()}],                       #add the system prompt to the request
+                system=[{"text":get_system_prompt()}],                       #this will just now add the system prompt to the request
                 inferenceConfig={"maxTokens":10, "temperature":0.0}   # setting the max tokens to 10 since we only need a simple classification of positive, negative, or neutral, and setting the temperature to 0 to reduce randomness and increase the likelihood of getting a consistent response (since we want the same input to always yield the same output for sentiment analysis cuz consistency is imoportant especially in cases like this).
             )
             the_raw_output=response['output']['message']['content'][0]['text'].strip().lower()
@@ -42,6 +42,8 @@ class bedrock_client:
             # if sentiment not in ["positive", "negative", "neutral"]:
             #     sentiment = "neutral"  # this would be the default/fallback just to be safe
 
+
+            #note: I am utilizing  ternary encoding of the qualitative observations (postiive negative neutral) into numerical represenetations to minimize token usage and maximize efficiency in processing/parsing
 
             sentiment = the_raw_output.strip()
             if len(the_raw_output) != 1 or sentiment not in ["1", "-1", "0"]:
