@@ -14,7 +14,7 @@ S3_OUTPUT_BUCKET = os.getenv("S3_OUTPUT_BUCKET", "airline-sentiment-output-bhave
 
 
 
-BEDROCK_MODEL_ID_NUMBER = "us.anthropic.claude-3-5-haiku-20241022-v1:0"
+BEDROCK_MODEL_ID_NUMBER = "amazon.nova-micro-v1:0"
 
 MIN_TWEETS_TO_PROCESS = 100
 DEFAULT_RATE_LIMIT = 10
