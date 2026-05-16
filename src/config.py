@@ -8,7 +8,7 @@ load_dotenv()
 
 
 
-AWS_REGION = os.getenv("AWS_REGION_ID", "us-east-1")
+AWS_REGION_ID = os.getenv("AWS_REGION_ID", "us-east-1")
 S3_INPUT_BUCKET = os.getenv("S3_INPUT_BUCKET", "placeholder")
 S3_OUTPUT_BUCKET = os.getenv("S3_OUTPUT_BUCKET", "placeholder")
 
