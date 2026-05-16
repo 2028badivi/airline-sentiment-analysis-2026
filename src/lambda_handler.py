@@ -104,27 +104,11 @@ def lambda_handler(event, context):
             
             if (idx + 1) % 20 == 0: print(f"Processed {idx + 1}/{len(tweets)} tweets")
 
+        # Use the utility function to save results (this includes debug logging)
+        from src.utils import save_results_to_s3
+        save_results_to_s3(results, key.split('/')[-1])
 
-
-
-            #saving to the s3 output bucket and also adding a timestamp to the output file name to avoid overwriting previous results or other kind of tracking purposes in teh future
-        from src.config import S3_OUTPUT_BUCKET
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_key = f"processed/{timestamp}_{key.split('/')[-1].replace('.csv', '.json')}"
-         
-
-
-
-        s3_client.put_object(
-            Bucket=S3_OUTPUT_BUCKET,
-            Key=output_key,
-            Body=json.dumps(results, indent=2),
-            ContentType="application/json"
-        )
-        
-
-
-        print(f"SUCCESS!!!!!! THE RESULTS are saved to s3://{S3_OUTPUT_BUCKET}/{output_key}")
+        print(f"SUCCESS!!!!!! Sentiment analysis completed!")
         
 
 

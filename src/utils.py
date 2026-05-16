@@ -42,6 +42,8 @@ def save_results_to_s3(results:list,original_filename:str):  #planning on making
     """this will save the processing results to S3 in JSON"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     json_key = f"processed/{timestamp}_{original_filename.replace('.csv', '.json')}" # to convert to json from csv and to save in the processed folder in the output bucket, and to include a timestamp in the filename to avoid overwriting any existing files in S3.
+    
+    print(f"Attempting to save results to s3://{S3_OUTPUT_BUCKET}/{json_key}")
     the_s3.put_object(Bucket=S3_OUTPUT_BUCKET,Key=json_key,Body=json.dumps(results, indent=2),ContentType="application/json"
     )
     print(f"Results saved to s3://{S3_OUTPUT_BUCKET}/{json_key}")
