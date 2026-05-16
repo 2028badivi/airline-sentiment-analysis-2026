@@ -5,8 +5,8 @@ These are just some functions I thought of adding to load the tweets from S3 and
 #imports
 
 import json
-from urllib import response
-import pandas as pd
+import csv
+import io
 from datetime import datetime
 
 #aws py sdk
@@ -22,11 +22,12 @@ from src.config import S3_OUTPUT_BUCKET, AWS_REGION_ID
 the_s3=boto3.client("s3", region_name=AWS_REGION_ID)
 
 
-def load_tweets_from_s3(bucket:str,key:str)->pd.DataFrame:
-    """this will downlaod the csv from S3 and load into a pd dataframe"""
+def load_tweets_from_s3(bucket:str,key:str) -> list:
+    """this will downlaod the csv from S3 and load into a list of dictionaries"""
     res=the_s3.get_object(Bucket=bucket,Key=key)
-    
-    return pd.read_csv(res['Body'])
+    csv_content = res['Body'].read().decode('utf-8')
+    reader = csv.DictReader(io.StringIO(csv_content))
+    return list(reader)
 
 
 
